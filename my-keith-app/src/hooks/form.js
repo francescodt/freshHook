@@ -1,28 +1,24 @@
 import { useState } from 'react';
 
-// Usage: useForm(saveItem)
-
-export default function useForm(onSubmit) {
+const useForm = (callback) => {
 
   const [values, setValues] = useState({});
-  // { name: 'Keith', dinnerPrefs: 'Chicken' }
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    onSubmit(values);
-  }
+  const handleSubmit = (event) => {
+    if (event) event.preventDefault();
+    callback(values);
+  };
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setValues(values => ({
-      ...values,
-      [name]: value,
-    }));
-  }
+  const handleChange = (event) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+  };
 
-  return [
-    handleSubmit,
+  return {
     handleChange,
+    handleSubmit,
     values,
-  ];
-}
+  };
+};
+
+export default useForm;
