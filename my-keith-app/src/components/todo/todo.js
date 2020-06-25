@@ -97,7 +97,7 @@ const ToDo = () => {
 
   return (
     <>
-      <header>
+      <header className={theme.mode}>
         <h2>
           There are {todoList.filter(item => !item.completed).length} Items To Complete
         </h2>
