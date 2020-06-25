@@ -1,13 +1,18 @@
 import React from 'react';
+import useTheme from './contexts/theme';
 
 import ToDo from './components/todo/todo.js';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <>
-        <ToDo />
-      </>
-    );
-  }
+
+function App() {
+  const { mode } = useTheme();
+
+  
+  return (
+    <div className={mode}>
+      <ToDo />
+    </div>
+  );
 }
+
+export default App;
