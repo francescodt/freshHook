@@ -4,8 +4,11 @@ import useFetch from '../../hooks/fetch.js';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import TodoItem from './item.js';
+import useTheme from '../../contexts/theme.js'
+
 
 import './todo.scss';
+import { ThemeContext } from '../../contexts/theme.js';
 
 // Should be in .env as REACT_APP_API_SERVER instead of hard coded
 const todoAPI = 'https://deltav-todo.azurewebsites.net/api/v1/todos';
@@ -22,6 +25,10 @@ const ToDo = () => {
   // Notice how all of the event handlers set a request object and call request() with it?
   // the hook has a useEffect() that's tied to changes in the request object, so as these
   // change that bit of state in the hook, api calls happen
+
+  const theme = useTheme();
+
+
 
   const _addItem = (item) => {
     const addRequest = {
@@ -86,12 +93,15 @@ const ToDo = () => {
     }
   }, [response, _getAll]);
 
+
+
   return (
     <>
       <header>
         <h2>
           There are {todoList.filter(item => !item.completed).length} Items To Complete
         </h2>
+        <button onClick={() => theme.toggleMode()}>{theme.mode} mode</button>
       </header>
 
       <section className="todo">
